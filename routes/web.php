@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return to_route('products.show', 1);
 });
+
+Route::get('products/{product}', ProductController::class)->name('products.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
