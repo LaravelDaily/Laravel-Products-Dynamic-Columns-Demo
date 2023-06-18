@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ProductSize;
+use App\Models\Size;
 
 class ProductController extends Controller
 {
@@ -11,7 +11,7 @@ class ProductController extends Controller
     {
         $product->load(['productColorSizes.color', 'productColorSizes.size']);
 
-        $sizes = ProductSize::pluck('name');
+        $sizes = Size::pluck('name');
 
         $productSizingTable = $product->productColorSizes->groupBy('color.name');
 

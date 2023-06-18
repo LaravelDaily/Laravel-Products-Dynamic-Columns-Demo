@@ -21,11 +21,11 @@ class ProductColorSize extends Model
 
     public function color(): BelongsTo
     {
-        return $this->belongsTo(ProductColor::class, 'color_id');
+        return $this->belongsTo(Color::class);
     }
 
     public function size(): BelongsTo
     {
-        return $this->belongsTo(ProductSize::class, 'size_id');
+        return $this->belongsTo(Size::class);
     }
 }

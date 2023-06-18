@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Models\ProductColor;
-use App\Models\ProductSize;
+use App\Models\Color;
+use App\Models\Size;
 use Illuminate\Database\Seeder;
 use Str;
 
@@ -22,7 +22,7 @@ class FakeDataSeeder extends Seeder
         ];
 
         foreach ($sizes as $size) {
-            ProductSize::create(['name' => $size]);
+            Size::create(['name' => $size]);
         }
 
         $colors = [
@@ -35,7 +35,7 @@ class FakeDataSeeder extends Seeder
         ];
 
         foreach ($colors as $color) {
-            ProductColor::create(['name' => $color]);
+            Color::create(['name' => $color]);
         }
 
         $products = collect([
@@ -48,8 +48,8 @@ class FakeDataSeeder extends Seeder
             'Trousers',
         ]);
 
-        $productColors = ProductColor::pluck('name', 'id');
-        $productSizes = ProductSize::all();
+        $productColors = Color::pluck('name', 'id');
+        $productSizes = Size::all();
 
         for ($i = 1; $i <= 10; $i++) {
             $product = Product::create([
