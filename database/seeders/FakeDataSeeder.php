@@ -48,30 +48,31 @@ class FakeDataSeeder extends Seeder
             'Trousers',
         ]);
 
-        for ($i = 0; $i <= 10; $i++) {
-            Product::create([
-                'name' => $products->random(),
-                'code' => random_int(1, 1000)
-            ]);
-        }
+        $productColors = ProductColor::pluck('name', 'id');
+        $productSizes = ProductSize::all();
 
-        foreach (Product::all() as $product) {
-            foreach (ProductColor::pluck('name', 'id') as $color => $colorName) {
+        for ($i = 1; $i <= 10; $i++) {
+            $product = Product::create([
+                'name' => $products->random(),
+                'code' => rand(1, 1000)
+            ]);
+
+            foreach ($productColors as $colorId => $colorName) {
                 $usedSizes = [];
-                for ($i = 0; $i < random_int(0, 6); $i++) {
-                    $size = ProductSize::whereNotIn('id', $usedSizes)->get()->random();
-                    if ($size && $color) {
+                for ($j = 0; $j < rand(0, 6); $j++) {
+                    $size = $productSizes->whereNotIn('id', $usedSizes)->random();
+                    if ($size && $colorId) {
                         $usedSizes[] = $size->id;
                         $product->productColorSizes()->create([
                             'size_id' => $size->id,
-                            'color_id' => $color,
-                            'reference_number' => Str::of($product->code)->append(
+                            'color_id' => $colorId,
+                            'reference_number' => str($product->code)->append(
                                 '-',
-                                Str::of($colorName)
+                                str($colorName)
                                     ->limit(2, '')
                                     ->upper(),
                                 '-',
-                                Str::of($size->name)
+                                str($size->name)
                                     ->upper(),
                             )
                         ]);
